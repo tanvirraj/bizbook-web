@@ -1,0 +1,47 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
+.button {
+  width: 100%;
+}
+
+.linkForgot {
+  color: $persian-green;
+  transition: opacity 0.2s;
+
+  &:hover {
+    color: $persian-green;
+    opacity: 0.8;
+  }
+}
+
+.rememberMeFormItem {
+  margin-bottom: $spacing-large;
+}
+
+.rememberMe {
+  &:global(.ant-checkbox-wrapper) {
+    color: $gray-color;
+
+    :global(.ant-checkbox + span) {
+      padding: 0 $spacing-small;
+    }
+    :global(.ant-checkbox-inner) {
+      border-color: $gray-color !important;
+      width: 18px;
+      height: 18px;
+
+      &:after {
+        top: 7px;
+        left: 4px;
+        width: 4px;
+        height: 10px;
+      }
+    }
+    :global(.ant-checkbox-checked) {
+      :global(.ant-checkbox-inner) {
+        border-color: $blue-color !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,157 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
+$button-xsmall: 24px;
+$button-small: 32px;
+$button-medium: 38px;
+$button-default: 48px;
+$button-large: 72px;
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1 !important;
+  height: $button-default;
+  font-weight: normal;
+  &:global(.ant-btn-circle) {
+    width: $button-default;
+  }
+}
+
+.xsmallButton {
+  height: $button-xsmall;
+  font-size: 12px;
+  font-weight: bold;
+  &:global(.ant-btn-circle) {
+    width: $button-xsmall;
+  }
+}
+
+.smallButton {
+  height: $button-small;
+  font-size: 12px;
+  font-weight: bold;
+  &:global(.ant-btn-circle) {
+    width: $button-small;
+  }
+}
+
+.mediumButton {
+  height: $button-medium;
+  font-size: 14px;
+  &:global(.ant-btn-circle) {
+    width: $button-medium;
+  }
+}
+
+.largeButton {
+  height: $button-large;
+  font-size: 24px;
+  font-weight: bold;
+  &:global(.ant-btn-circle) {
+    width: $button-large;
+  }
+}
+
+.primaryButton {
+  @extend .button;
+  color: $white-color;
+  border-style: none;
+
+  background: $gradient-color;
+
+  &:hover,
+  &:focus {
+    color: $white-color;
+
+    background: $gradient-hover-color;
+  }
+
+  &:global(.ant-btn[disabled]) {
+    color: $white-color;
+    opacity: 0.4;
+  }
+}
+
+.secondaryButton {
+  @extend .button;
+  color: $blue-color;
+  border-color: $blue-color;
+
+  &.largeButton {
+    font-weight: normal;
+  }
+
+  &:hover,
+  &:focus {
+    color: $dark-blue-color;
+    border-color: $dark-blue-color;
+  }
+
+  &:global(.ant-btn[disabled]) {
+    background-color: $white-color;
+    border-color: $blue-color;
+    color: $blue-color;
+    opacity: 0.4;
+  }
+}
+
+.defaultButton,
+.tertiaryButton {
+  @extend .button;
+  color: $gray-color;
+  border-color: $gray-color;
+
+  &.largeButton {
+    font-weight: normal;
+  }
+
+  &:hover,
+  &:focus {
+    color: $black-color;
+    border-color: $black-color;
+  }
+
+  &:global(.ant-btn[disabled]) {
+    background-color: $white-color;
+    border-color: $gray-color;
+    color: $gray-color;
+    opacity: 0.4;
+  }
+}
+
+:global(.ant-btn-circle) {
+  .buttonContent {
+    display: flex !important;
+  }
+}
+
+.buttonContent {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconLeft {
+  margin-left: $spacing-small;
+}
+.iconRight {
+  margin-right: $spacing-small;
+}
+
+.borderless {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.transparentBg {
+  background-color: transparent;
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
+  &:global(.ant-btn[disabled]) {
+    background-color: transparent;
+  }
+}

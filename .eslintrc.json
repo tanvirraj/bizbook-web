@@ -1,0 +1,31 @@
+{
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "plugins": ["react"],
+  "rules": {
+    "react/jsx-fragments": ["error", "syntax"],
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": ["ts", "tsx"]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "singleQuote": false,
+        "trailingComma": "es5",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "tabWidth": 2,
+        "semi": true
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
