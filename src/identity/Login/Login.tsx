@@ -16,9 +16,6 @@ interface IProps extends RouteComponentProps {
 class Login extends PureComponent<IProps> {
   handleSubmit = async (data: any) => {
     console.log("handleSubmit", data);
-    try {
-    } finally {
-    }
   };
   render() {
     return (
