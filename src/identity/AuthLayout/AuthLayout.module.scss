@@ -2,8 +2,8 @@
 @import "src/ui/variables";
 
 .container {
-  height: 100%;
-  margin-top: 110px;
+  height: 100vh;
+  padding-top: 110px;
 }
 
 .card {
@@ -24,7 +24,6 @@
 
 .logoContainer {
   text-align: center;
-  padding-bottom: $spacing-xxlarge;
 }
 
 .logo {
@@ -37,11 +36,4 @@
   flex-direction: column;
   flex: 1;
   justify-content: flex-end;
-}
-
-.version {
-  text-align: center;
-  padding-top: $spacing-medium;
-  color: $gray-color;
-  font-size: $font-size-small;
 }

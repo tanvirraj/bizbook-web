@@ -1,0 +1,107 @@
+@import "./colors";
+@import "./variables";
+
+/* ANT DESIGN OVERWRITES */
+
+// Ant Menu icons
+// Add horizontal margin to support LTR/RTL
+.ant-menu-item .anticon,
+.ant-menu-submenu-title .anticon {
+  margin: 0 10px;
+}
+
+// Ant Menu submenu color
+.ant-menu-submenu.ant-menu-submenu-popup .ant-menu-sub {
+  background: $white-color;
+}
+// Ant Menu submenu select/hover acitve color
+.ant-menu-submenu.ant-menu-submenu-popup .ant-menu-sub .ant-menu-item-selected,
+.ant-menu-submenu.ant-menu-submenu-popup .ant-menu-sub .ant-menu-item-active {
+  background: #f2f2f7;
+}
+// Ant Menu submenu link color
+.ant-menu-submenu.ant-menu-submenu-popup .ant-menu-sub .ant-menu-item a {
+  color: $gray-color;
+}
+
+// Custom Checkbox
+.ant-checkbox-wrapper {
+  .ant-checkbox-inner {
+    border: 1px solid $gray-color;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+  }
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: $blue-color;
+    border-color: $blue-color;
+
+    &:after {
+      border-width: 1px;
+      top: 9px;
+      left: 6px;
+      width: 6px;
+      height: 13px;
+    }
+  }
+
+  .ant-checkbox + span {
+    padding-left: $spacing-medium;
+    padding-right: $spacing-medium;
+  }
+
+  .ant-checkbox-indeterminate .ant-checkbox-inner:after {
+    background-color: $blue-color;
+  }
+}
+
+.ant-popover-inner {
+  overflow: hidden;
+}
+
+// Auto complete dropdown
+.ant-select-dropdown-menu-item {
+  &:hover {
+    background-color: $bg-color !important;
+  }
+}
+
+.ant-select-dropdown-menu-item-active,
+.ant-select-dropdown-menu-item-selected {
+  background-color: $bg-color !important;
+}
+
+// Button dropdown
+.ant-dropdown-menu-item {
+  &:hover {
+    background-color: $bg-color !important;
+  }
+}
+
+// Select dropdown and searchbar auto complete dropdown
+.ant-select-dropdown-menu-item {
+  border-top-style: none !important;
+  border-left-style: none !important;
+  border-right-style: none !important;
+  border-bottom: 1px solid $light-gray-color !important;
+  &:last-child {
+    border-bottom-style: none !important;
+  }
+}
+
+// Multi select dropdown
+.ant-select-selection--multiple {
+  .ant-select-selection__choice {
+    background-color: $light-orange-color !important;
+    border-radius: 4px !important;
+    color: $orange-color !important;
+    font-weight: bold;
+    font-size: $font-size-small;
+    padding: 0 $spacing-large + 4px 0 $spacing-small !important;
+    margin-right: $spacing-small !important;
+  }
+  :global(.ant-select-selection__choice__remove) {
+    color: $orange-color !important;
+    font-size: $font-size-medium !important;
+  }
+}

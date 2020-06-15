@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
+import "ui/antd-global-overwrites.scss";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./router/Router";
 import * as serviceWorker from "./serviceWorker";

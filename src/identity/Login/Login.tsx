@@ -4,8 +4,9 @@ import { RouteComponentProps } from "react-router";
 import BrowserTitle from "ui/BrowserTitle";
 import Form, { FormItem } from "ui/forms/Form";
 import Button, { ExtendButtonType } from "ui/Button/Button";
+import Input, { InputType } from "ui/Input/Input";
 import styles from "./Login.module.scss";
-import { Input, Row, Checkbox } from "antd";
+import { Row, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import { PUBLIC_ROUTES } from "router/Router.config";
 
@@ -23,7 +24,7 @@ class Login extends PureComponent<IProps> {
         <BrowserTitle title="Login" />
         <Form onSubmitForm={this.handleSubmit}>
           <FormItem
-            label="email"
+            label="Email"
             name="email"
             options={{
               rules: [
@@ -49,7 +50,7 @@ class Login extends PureComponent<IProps> {
               ],
             }}
           >
-            <Input />
+            <Input type={InputType.PASSWORD} />
           </FormItem>
           <Row type="flex" justify="space-between" align="top">
             <FormItem
