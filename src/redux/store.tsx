@@ -1,4 +1,9 @@
-import { init } from "@rematch/core";
+import {
+  init,
+  RematchDispatch,
+  RematchRootState,
+  RematchStore,
+} from "@rematch/core";
 import createLoadingPlugin from "@rematch/loading";
 import createRematchPersist from "@rematch/persist";
 import * as models from "redux/models";
@@ -12,10 +17,16 @@ const persistPlugin = createRematchPersist({
   version: 1,
 });
 
-const store = init({
+const store: RematchStore<Models> = init({
   models,
   plugins: [loading, persistPlugin, selectPlugin()],
 });
 
-export const { select } = store;
+export type Store = typeof store;
+export type Models = typeof models;
+export type RootState = RematchRootState<Models>;
+export type iRootState = RematchRootState<typeof models>;
+// @ts-ignore
+export type RootDispatch = RematchDispatch<Models>;
+
 export default store;
