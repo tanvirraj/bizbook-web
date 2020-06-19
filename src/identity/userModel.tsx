@@ -10,7 +10,7 @@ const userModel = {
      * Set user
      * @payload: { user }
      */
-    setSuccess: (state: Object, payload: any) => {
+    setSuccess: (state: any, payload: any) => {
       return {
         ...state,
         user: payload.user,
@@ -25,7 +25,7 @@ const userModel = {
       AuthHelper.saveTokens(user.access_token, user[".expires"]);
 
       // delete token from user, so it won't be stored in localstorage for security reasons
-      delete user.token;
+      delete user.access_token;
       dispatch.userModel.setSuccess({ user });
     },
   }),
