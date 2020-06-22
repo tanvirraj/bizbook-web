@@ -1,0 +1,54 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
+.trigger {
+  font-size: $font-size-large;
+  padding: $spacing-none $spacing-large $spacing-none $spacing-none;
+  cursor: pointer;
+  transition: color 0.3s;
+  &.hover {
+    color: $brand-secondary;
+  }
+}
+
+.header {
+  background: $white-color;
+  padding: $spacing-none $spacing-large;
+  box-shadow: $header-shadow;
+  z-index: 1;
+}
+
+.globalDropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: $spacing-medium;
+
+  :global(.ant-form) {
+    width: 100%;
+  }
+
+  .filterDropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    .currencySelector {
+      margin-right: $spacing-small;
+    }
+  }
+}
+
+.logoutMenu {
+  display: flex;
+  justify-content: center;
+}
+
+.userButton {
+  border: none;
+  box-shadow: none;
+}
+
+.headerDropdown {
+  margin-top: $spacing-medium;
+}

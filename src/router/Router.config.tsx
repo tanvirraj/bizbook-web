@@ -13,4 +13,4 @@ export const PRIVATE_ROUTES = {
 export const PUBLIC_ROUTES = { ...AUTH_ROUTES };
 
 /** SiderMenu Items */
-export const SIDER_MENU = [];
+export const SIDER_MENU = [DASHBOARD.DASHBOARD_SCREEN];

@@ -1,5 +1,5 @@
 import cookie from "react-cookies";
-// import store from "../redux/store";
+import store from "../redux/store";
 // import * as authApi from "./authApi";
 // import { message } from "antd";
 
@@ -16,6 +16,17 @@ export class AuthHelper {
   }
 
   /**
+   * Logout user, i.e. clear and ivalidate tokens, and clear user model.
+   */
+  /**
+   * Clean up as part of logging out the user
+   */
+  static logout() {
+    AuthHelper.clearTokens();
+    store.dispatch.userModel.clear();
+  }
+
+  /**
    * Save token in a cookie
    * @param {string} accessToken
    * @param {string} expireAt
@@ -23,6 +34,13 @@ export class AuthHelper {
   static saveTokens(accessToken: string, expireAt: string) {
     const value = { accessToken, expireAt };
     cookie.save(SESSION_TOKEN, value, { path: "/" });
+  }
+
+  /**
+   * Deletes the session cookie
+   */
+  static clearTokens() {
+    cookie.remove(SESSION_TOKEN, { path: "/" });
   }
 
   /**

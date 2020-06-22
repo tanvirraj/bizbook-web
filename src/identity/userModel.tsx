@@ -16,6 +16,13 @@ const userModel = {
         user: payload.user,
       };
     },
+    /**
+     * Log out the user
+     * @payload: { }
+     */
+    clear(state: any, payload: any) {
+      return INITIAL_STATE;
+    },
   },
   effects: (dispatch: any) => ({
     async login(payload: { username: string; password: string }) {

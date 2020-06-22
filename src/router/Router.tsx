@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import _values from "lodash/values";
 import { connect } from "react-redux";
-import { PUBLIC_ROUTES, PRIVATE_ROUTES } from "./Router.config";
+import { PUBLIC_ROUTES, PRIVATE_ROUTES, SIDER_MENU } from "./Router.config";
 import { AuthHelper } from "identity/authHelper";
+import DefaultLayout from "ui/DefaultLayout/DefaultLayout";
 
 interface IProps {
   user: any;
@@ -24,7 +25,11 @@ class Router extends Component<IProps> {
             key={item.id}
             exact
             path={item.path}
-            component={item.component}
+            render={props => (
+              <DefaultLayout {...props} siderMenu={SIDER_MENU}>
+                <item.component {...props} />
+              </DefaultLayout>
+            )}
           />
         ))}
         <Redirect exact from="/" to={PRIVATE_ROUTES.DASHBOARD_SCREEN.path} />
