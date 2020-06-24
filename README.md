@@ -54,4 +54,8 @@ No tests
 
 ## Old demo website
 
-- [web.bizbook365](http://web.bizbook365.com/#/)
+- [web.bizbook365](http://bizbookclientv1.azurewebsites.net/#/)
+
+## Netlify Demo site
+
+[development](https://bizbook365.netlify.app/)

@@ -16,13 +16,14 @@ interface Props {
  */
 const SiderMenu: FunctionComponent<Props> = ({ siderMenu }) => {
   return (
-    <Menu theme="dark" mode="inline">
-      <SubMenu key="sub2" title="Navigation Two">
-        <Menu.Item key="5">Option 5</Menu.Item>
-        <Menu.Item key="6">Option 6</Menu.Item>
-        <SubMenu key="sub3" title="Submenu">
-          <Menu.Item key="7">Option 7</Menu.Item>
-          <Menu.Item key="8">Option 8</Menu.Item>
+    <Menu mode="inline">
+      <Menu.Item key="2">Navigation Two</Menu.Item>
+      <SubMenu key="sub1" title="Navigation Two">
+        <Menu.Item key="3">Option 3</Menu.Item>
+        <Menu.Item key="4">Option 4</Menu.Item>
+        <SubMenu key="sub1-2" title="Submenu">
+          <Menu.Item key="5">Option 5</Menu.Item>
+          <Menu.Item key="6">Option 6</Menu.Item>
         </SubMenu>
       </SubMenu>
     </Menu>
