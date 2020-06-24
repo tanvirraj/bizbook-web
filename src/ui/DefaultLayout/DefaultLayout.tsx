@@ -23,6 +23,7 @@ const DefaultLayout: FunctionComponent<Props> = ({ siderMenu, children }) => {
   return (
     <AntdLayout className={styles.layout}>
       <Sider
+        theme="light"
         collapsible
         collapsed={collapsed}
         onCollapse={setCollapsed}
