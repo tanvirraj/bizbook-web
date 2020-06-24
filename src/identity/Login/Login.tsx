@@ -1,21 +1,31 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import BrowserTitle from "ui/BrowserTitle";
 import Form, { FormItem } from "ui/forms/Form";
 import Button, { ExtendButtonType } from "ui/Button/Button";
+import Input, { InputType } from "ui/Input/Input";
 import styles from "./Login.module.scss";
-import { Input, Row, Checkbox } from "antd";
+import { Row, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import { PUBLIC_ROUTES } from "router/Router.config";
 
 interface IProps extends RouteComponentProps {
   history: any;
+  /** Login function that calls the API and sets tokens */
+  login: Function;
+  /** Loading state from rematch that listens to the login function */
+  loading: boolean;
 }
 
 class Login extends PureComponent<IProps> {
   handleSubmit = async (data: any) => {
-    console.log("handleSubmit", data);
+    const { login } = this.props;
+    try {
+      await login(data.username, data.password);
+    } finally {
+    }
   };
   render() {
     return (
@@ -23,16 +33,10 @@ class Login extends PureComponent<IProps> {
         <BrowserTitle title="Login" />
         <Form onSubmitForm={this.handleSubmit}>
           <FormItem
-            label="email"
-            name="email"
+            label="Email"
+            name="username"
             options={{
-              rules: [
-                { required: true, message: "email is required" },
-                {
-                  type: "email",
-                  message: "invalid email",
-                },
-              ],
+              rules: [{ required: true, message: "username is required" }],
             }}
           >
             <Input />
@@ -49,7 +53,7 @@ class Login extends PureComponent<IProps> {
               ],
             }}
           >
-            <Input />
+            <Input type={InputType.PASSWORD} />
           </FormItem>
           <Row type="flex" justify="space-between" align="top">
             <FormItem
@@ -84,4 +88,14 @@ class Login extends PureComponent<IProps> {
   }
 }
 
-export default withRouter(Login);
+const mapState = (state: any) => ({
+  loading: state.loading.effects.userModel.login,
+});
+
+const mapDispatch = (dispatch: any) => ({
+  login: (username: string, password: string) =>
+    dispatch.userModel.login({ username, password }),
+});
+
+const LoginWithRouter = withRouter(Login);
+export default connect(mapState, mapDispatch)(LoginWithRouter);

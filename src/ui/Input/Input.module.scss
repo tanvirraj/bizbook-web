@@ -1,0 +1,107 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
+$input-height: 48px;
+
+%ant-input-style {
+  $input-line-height: $spacing-medium * 1.5;
+  $input-vertical-spacing: ($input-height - $input-line-height) / 2 - 1px;
+
+  min-height: $input-height;
+  padding: $input-vertical-spacing $spacing-medium;
+  border-color: $gray-color;
+}
+
+%ant-disabled-style {
+  background-color: $lighter-gray-color !important;
+  color: $cloudy-blue-color;
+  border-color: $light-gray-color !important;
+}
+
+.inputStyle {
+  &:global(.ant-input) {
+    @extend %ant-input-style;
+  }
+  &:global(.ant-input-number) {
+    width: 100%;
+    border-color: $gray-color;
+    height: $input-height;
+    color: $gray-color;
+    background-color: transparent;
+    :global(.ant-input-number-input) {
+      height: 46px;
+      padding: 0 $spacing-medium;
+    }
+  }
+  :global(.ant-form-item-control:not(.has-error))
+    &
+    :global(.ant-input-group-addon) {
+    background-color: transparent;
+    border-color: $gray-color;
+  }
+  :global(.ant-input-disabled) {
+    @extend %ant-disabled-style;
+  }
+  &:global(.ant-input-number-disabled) {
+    border-color: $light-gray-color !important;
+    :global(.ant-input-number-input) {
+      @extend %ant-disabled-style;
+    }
+  }
+}
+
+$small-input-height: 40px;
+
+.smallInput {
+  &:global(.ant-input-number) {
+    height: $small-input-height;
+    :global(.ant-input-number-input) {
+      height: 38px;
+    }
+  }
+
+  :global(.ant-input) {
+    min-height: $small-input-height;
+  }
+}
+
+.addonAfterStyle {
+  :global(.ant-input) {
+    border-right-style: none;
+  }
+}
+
+.addonBeforeStyle {
+  :global(.ant-input) {
+    border-left-style: none;
+  }
+}
+
+.addonSeparator {
+  .addonAfterStyle {
+    :global(.ant-input) {
+      border-right-style: solid;
+    }
+  }
+  .addonBeforeStyle {
+    :global(.ant-input) {
+      border-left-style: solid;
+    }
+  }
+}
+
+.addonAfterStyle,
+.addonBeforeStyle {
+  &.disabled {
+    :global(.ant-input-group-addon) {
+      @extend %ant-disabled-style;
+      :global(.ant-select-selection-selected-value) {
+        color: $gray-suit-color !important;
+      }
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

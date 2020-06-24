@@ -1,0 +1,25 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
+.sider {
+  height: 100vh;
+}
+
+.logo {
+  color: $persian-green;
+  margin: 33px auto;
+  font-size: 36px;
+  line-height: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.content {
+  padding: 0;
+  background-color: #ececec;
+}
+
+.layout {
+  min-height: 100vh;
+  flex-direction: row;
+}
