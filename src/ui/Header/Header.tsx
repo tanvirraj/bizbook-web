@@ -37,7 +37,7 @@ class Header extends Component<IProps> {
     return (
       <AntdHeader className={styles.header}>
         <Row>
-          <Col span={1}>
+          <Col span={19}>
             <div>
               <Icon
                 className={styles.trigger}

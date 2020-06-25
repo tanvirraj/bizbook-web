@@ -5,8 +5,6 @@ import { RootState } from "../redux/store";
 const DashboardScreen = () => {
   const user: any = useSelector((state: RootState) => state.userModel.user);
 
-  console.log("Dashboard", user);
-
   return (
     <div>
       <h1>Dashboard</h1>

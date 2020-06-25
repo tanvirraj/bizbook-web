@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from "react";
-//import styles from "./SideMenu.module.scss";
+import styles from "./SideMenu.module.scss";
 import { Menu } from "antd";
-
+import { Link, useLocation } from "react-router-dom";
 import { IMenuItemType } from "../../router/routerType";
-
-const { SubMenu } = Menu;
+const { SubMenu, Item: MenuItem } = Menu;
 
 interface Props {
   /** List of sider menu items */
@@ -15,17 +14,49 @@ interface Props {
  * Main Layout Sider Menu
  */
 const SiderMenu: FunctionComponent<Props> = ({ siderMenu }) => {
+  const location = useLocation();
+
+  const getSubMenuOpenKey = (location: any) => {
+    return location.match(/[/]\w*/)[0];
+  };
+
+  const getMenuOpenKey = (path: any) => {
+    const location = path.match(/^\/.[^/]+\/.[^0-9/]+\w/g);
+    return location == null ? path.match(/[/]\w*/)[0] : location[0];
+  };
+
   return (
-    <Menu mode="inline">
-      <Menu.Item key="2">Navigation Two</Menu.Item>
-      <SubMenu key="sub1" title="Navigation Two">
-        <Menu.Item key="3">Option 3</Menu.Item>
-        <Menu.Item key="4">Option 4</Menu.Item>
-        <SubMenu key="sub1-2" title="Submenu">
-          <Menu.Item key="5">Option 5</Menu.Item>
-          <Menu.Item key="6">Option 6</Menu.Item>
-        </SubMenu>
-      </SubMenu>
+    <Menu
+      mode="inline"
+      selectedKeys={[getMenuOpenKey(location.pathname)]}
+      defaultOpenKeys={[getSubMenuOpenKey(location.pathname)]}
+    >
+      {siderMenu.map(item =>
+        item.subMenuItems ? (
+          <SubMenu
+            key={item.path}
+            title={
+              <span>
+                <span className={styles.menuItem}>{item.title}</span>
+              </span>
+            }
+          >
+            {item.subMenuItems.map(subItem => (
+              <MenuItem key={getMenuOpenKey(subItem.path)}>
+                <Link to={subItem.path}>
+                  <span className={styles.menuItem}>{subItem.title}</span>
+                </Link>
+              </MenuItem>
+            ))}
+          </SubMenu>
+        ) : (
+          <MenuItem key={getSubMenuOpenKey(item.path)}>
+            <Link to={item.path}>
+              <span className={styles.menuItem}>{item.title}</span>
+            </Link>
+          </MenuItem>
+        )
+      )}
     </Menu>
   );
 };
