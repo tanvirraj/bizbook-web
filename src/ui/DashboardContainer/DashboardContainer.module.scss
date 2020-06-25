@@ -1,0 +1,41 @@
+@import "ui/colors";
+@import "ui/variables";
+
+.container {
+  margin-bottom: $spacing-xxlarge;
+}
+
+.header {
+  margin-bottom: 40px;
+  margin-bottom: $spacing-large;
+  display: flex;
+  align-items: center;
+
+  .headerLeft {
+    font-size: $font-size-xxxlarge;
+    font-weight: normal;
+    line-height: normal;
+    padding-top: 4px;
+    color: $black-color;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .headerTags {
+    margin-left: $spacing-large;
+
+    > *:not(:last-child) {
+      margin-right: $spacing-small;
+    }
+  }
+
+  .headerRight {
+    text-align: right;
+
+    & > * {
+      margin-left: $spacing-medium;
+    }
+  }
+}

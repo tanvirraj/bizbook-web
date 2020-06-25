@@ -16,11 +16,11 @@ interface Props {
 const SiderMenu: FunctionComponent<Props> = ({ siderMenu }) => {
   const location = useLocation();
 
-  const getSubMenuOpenKey = (location: any) => {
+  const getTopMenuOpenkey = (location: any) => {
     return location.match(/[/]\w*/)[0];
   };
 
-  const getMenuOpenKey = (path: any) => {
+  const getSubMenuOpenKey = (path: any) => {
     const location = path.match(/^\/.[^/]+\/.[^0-9/]+\w/g);
     return location == null ? path.match(/[/]\w*/)[0] : location[0];
   };
@@ -28,8 +28,13 @@ const SiderMenu: FunctionComponent<Props> = ({ siderMenu }) => {
   return (
     <Menu
       mode="inline"
-      selectedKeys={[getMenuOpenKey(location.pathname)]}
-      defaultOpenKeys={[getSubMenuOpenKey(location.pathname)]}
+      // Array with the keys of currently selected menu items
+      // if there is any sub menu, this is actuall subteem's key
+      selectedKeys={[getSubMenuOpenKey(location.pathname)]}
+      // Array with the keys of default opened Top albel sub  menus
+      // this is actuall meny key, if there is subitem
+      // then which top lable menu will be selected this key define this
+      defaultOpenKeys={[getTopMenuOpenkey(location.pathname)]}
     >
       {siderMenu.map(item =>
         item.subMenuItems ? (
@@ -42,7 +47,7 @@ const SiderMenu: FunctionComponent<Props> = ({ siderMenu }) => {
             }
           >
             {item.subMenuItems.map(subItem => (
-              <MenuItem key={getMenuOpenKey(subItem.path)}>
+              <MenuItem key={getSubMenuOpenKey(subItem.path)}>
                 <Link to={subItem.path}>
                   <span className={styles.menuItem}>{subItem.title}</span>
                 </Link>
@@ -50,7 +55,7 @@ const SiderMenu: FunctionComponent<Props> = ({ siderMenu }) => {
             ))}
           </SubMenu>
         ) : (
-          <MenuItem key={getSubMenuOpenKey(item.path)}>
+          <MenuItem key={getTopMenuOpenkey(item.path)}>
             <Link to={item.path}>
               <span className={styles.menuItem}>{item.title}</span>
             </Link>
