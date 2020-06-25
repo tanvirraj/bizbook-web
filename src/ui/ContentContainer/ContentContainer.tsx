@@ -1,7 +1,4 @@
-// @flow
-
 import React, { PureComponent } from "react";
-
 import cx from "classnames";
 import styles from "./ContentContainer.module.scss";
 
