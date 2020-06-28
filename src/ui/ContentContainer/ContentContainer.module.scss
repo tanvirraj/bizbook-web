@@ -2,6 +2,7 @@
 @import "src/ui/variables";
 
 .contentContainer {
+  padding: 24px 24px 16px;
   border-radius: 4px;
   box-shadow: $box-shadow;
   background-color: $white-color;
@@ -9,7 +10,7 @@
 }
 
 .header {
-  padding: 39px 32px 16px;
+  padding: 0px 0px 8px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -19,20 +20,13 @@
 
   .headerLeft {
     flex: 0 0 230px;
+    font-size: $font-size-xxlarge;
+    font-weight: $font-weight-500;
   }
-  .headerMiddle {
-    flex: 0 0 230px;
-    display: flex;
-    justify-content: center;
-  }
+
   .headerRight {
     flex: 0 0 230px;
     display: flex;
     justify-content: flex-end;
   }
-}
-
-.searchBar {
-  flex: 100%;
-  margin-bottom: $spacing-large;
 }

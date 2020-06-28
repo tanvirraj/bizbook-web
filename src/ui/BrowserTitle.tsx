@@ -17,7 +17,7 @@ class BrowserTitle extends PureComponent<Props> {
       <Helmet>
         <title>
           {(!!title && `${title} | `) || ""}
-          {"BizBook"}
+          {"KhaasFood"}
         </title>
       </Helmet>
     );

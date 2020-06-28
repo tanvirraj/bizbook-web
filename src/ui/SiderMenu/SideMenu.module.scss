@@ -2,8 +2,8 @@
 @import "src/ui/variables";
 
 .menuItem {
-  font-weight: 500;
-  font-size: $font-size-medium;
-  line-height: 22px;
-  color: black;
+  font-weight: $font-weight-500;
+  font-size: $font-size-small;
+  line-height: $spacing-medium;
+  color: $black-color;
 }
