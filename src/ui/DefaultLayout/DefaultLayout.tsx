@@ -29,7 +29,7 @@ const DefaultLayout: FunctionComponent<Props> = ({ siderMenu, children }) => {
         onCollapse={setCollapsed}
         width={256}
       >
-        <div className={styles.logo}>{collapsed ? "B" : "Bizbook"}</div>
+        <div className={styles.logo}>{collapsed ? "K" : "KhaasFood"}</div>
         <SiderMenu siderMenu={siderMenu} />
       </Sider>
       <AntdLayout>
