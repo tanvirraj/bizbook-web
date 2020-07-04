@@ -16,11 +16,11 @@ interface IProps extends RouteComponentProps {
   /** Loading state from rematch that listens to the login function */
   loading: boolean;
   getProducts: Function;
+  productList: any;
 }
-interface IState {}
 
-class ProductScreen extends PureComponent<IProps, IState> {
-  async componentDidMount() {
+class ProductScreen extends PureComponent<IProps> {
+  componentDidMount() {
     const { getProducts } = this.props;
     const apiArguments = {
       isAscending: "False",
@@ -30,13 +30,12 @@ class ProductScreen extends PureComponent<IProps, IState> {
       parentId: "",
     };
     getProducts(apiArguments);
-    // try {
-    //   await getProducts(apiArguments);
-    // } finally {
-    // }
   }
 
   render() {
+    const { productList, loading } = this.props;
+    console.log("loading", loading);
+    console.log("productList", productList);
     return (
       <>
         <BrowserTitle title="Product" />
@@ -62,12 +61,12 @@ class ProductScreen extends PureComponent<IProps, IState> {
 }
 
 const mapState = (state: any) => ({
-  //productList: state.productModel.productList,
-  //loading: state.loading.effects.productModel.getproducts,
+  productList: state.productModel.productList,
+  loading: state.loading.effects.productModel.getproducts,
 });
 
 const mapDispatch = (dispatch: any) => ({
-  getProducts: (search: any) => dispatch.productModel.getProducts({ search }),
+  getProducts: (search: any) => dispatch.productModel.getProducts(search),
 });
 
 const ProductScreenWithRouter = withRouter(ProductScreen);

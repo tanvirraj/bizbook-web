@@ -10,12 +10,8 @@ export const getProducts = (params?: any) => {
   // If params query exists remove all undefined values
   //params && UtilHelper.removeUndefined(params);
 
-  console.log("params", params);
-
   return api
-    .get(url, {
-      params: { ...params },
-    })
+    .post(url, params)
     .then((resp: any) => resp.data)
     .catch((err: any) => {
       throw err;

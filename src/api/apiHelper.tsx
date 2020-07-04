@@ -13,10 +13,7 @@ const anonymousEndpoints = [Endpoints.USERS_LOGIN];
 const authInterceptor = async (request: AxiosRequestConfig) => {
   const isAnonymous = anonymousEndpoints.includes(request.url || "");
 
-  const { accessToken, expireAt } = AuthHelper.getTokens();
-
-  console.log("expireAt", expireAt);
-  console.log("accessToken", accessToken);
+  const { accessToken } = AuthHelper.getTokens();
 
   if (isAnonymous) {
     return request;
