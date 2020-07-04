@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { RouteComponentProps } from "react-router";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import DashboardContainer from "ui/DashboardContainer/DashboardContainer";
 import ContentContainer from "ui/ContentContainer/ContentContainer";
@@ -16,22 +17,23 @@ interface IProps extends RouteComponentProps {
   loading: boolean;
   getProducts: Function;
 }
-interface IState {
-  /** All the timesheets */
-  productList: any[];
-  /** Loading state for fetching timesheets */
-  loading: boolean;
-}
+interface IState {}
 
 class ProductScreen extends PureComponent<IProps, IState> {
-  state: IState = {
-    productList: [],
-    loading: true,
-  };
-
-  componentDidMount() {
+  async componentDidMount() {
     const { getProducts } = this.props;
-    getProducts();
+    const apiArguments = {
+      isAscending: "False",
+      keyword: "",
+      orderBy: "Modified",
+      page: 1,
+      parentId: "",
+    };
+    getProducts(apiArguments);
+    // try {
+    //   await getProducts(apiArguments);
+    // } finally {
+    // }
   }
 
   render() {
@@ -60,12 +62,13 @@ class ProductScreen extends PureComponent<IProps, IState> {
 }
 
 const mapState = (state: any) => ({
-  productList: state.productModel.productList,
-  loading: state.loading.effects.productModel.getproducts,
+  //productList: state.productModel.productList,
+  //loading: state.loading.effects.productModel.getproducts,
 });
 
 const mapDispatch = (dispatch: any) => ({
   getProducts: (search: any) => dispatch.productModel.getProducts({ search }),
 });
 
-export default connect(mapState, mapDispatch)(ProductScreen);
+const ProductScreenWithRouter = withRouter(ProductScreen);
+export default connect(mapState, mapDispatch)(ProductScreenWithRouter);

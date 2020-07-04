@@ -1,4 +1,6 @@
-const INITIAL_STATE = { user: {} };
+import * as productApi from "./productApi";
+
+const INITIAL_STATE = { productList: {} };
 
 const userModel = {
   state: INITIAL_STATE,
@@ -10,7 +12,7 @@ const userModel = {
     setSuccess: (state: any, payload: any) => {
       return {
         ...state,
-        user: payload.user,
+        productList: payload.products,
       };
     },
     /**
@@ -22,7 +24,10 @@ const userModel = {
     },
   },
   effects: (dispatch: any) => ({
-    async login(payload: { username: string; password: string }) {},
+    async getProducts(payload: any) {
+      const productList = await productApi.getProducts(payload);
+      console.log("productList", productList);
+    },
   }),
 };
 
