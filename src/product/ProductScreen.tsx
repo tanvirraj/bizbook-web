@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import DashboardContainer from "ui/DashboardContainer/DashboardContainer";
 import ContentContainer from "ui/ContentContainer/ContentContainer";
 import Button, { ExtendButtonType, ExtendBUttonSize } from "ui/Button/Button";
@@ -11,31 +10,10 @@ import ProductList from "./ProductList/ProductList";
 
 interface IProps extends RouteComponentProps {
   history: any;
-  /** Login function that calls the API and sets tokens */
-  login: Function;
-  /** Loading state from rematch that listens to the login function */
-  loading: boolean;
-  getProducts: Function;
-  productList: any;
 }
 
 class ProductScreen extends PureComponent<IProps> {
-  componentDidMount() {
-    const { getProducts } = this.props;
-    const apiArguments = {
-      isAscending: "False",
-      keyword: "",
-      orderBy: "Modified",
-      page: 1,
-      parentId: "",
-    };
-    getProducts(apiArguments);
-  }
-
   render() {
-    const { productList, loading } = this.props;
-    console.log("loading", loading);
-    console.log("productList", productList);
     return (
       <>
         <BrowserTitle title="Product" />
@@ -60,14 +38,4 @@ class ProductScreen extends PureComponent<IProps> {
   }
 }
 
-const mapState = (state: any) => ({
-  productList: state.productModel.productList,
-  loading: state.loading.effects.productModel.getproducts,
-});
-
-const mapDispatch = (dispatch: any) => ({
-  getProducts: (search: any) => dispatch.productModel.getProducts(search),
-});
-
-const ProductScreenWithRouter = withRouter(ProductScreen);
-export default connect(mapState, mapDispatch)(ProductScreenWithRouter);
+export default withRouter(ProductScreen);
