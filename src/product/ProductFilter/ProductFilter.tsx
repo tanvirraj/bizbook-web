@@ -7,6 +7,7 @@ import styles from "./ProductFilter.module.scss";
 import Input from "ui/Input/Input";
 import { SearchOutlined } from "@ant-design/icons";
 import _debounce from "lodash/debounce";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 
 interface IProps extends RouteComponentProps {
   history: any;
@@ -16,15 +17,15 @@ interface IProps extends RouteComponentProps {
 
 interface IState {
   productName: string | undefined;
-  isActive: boolean;
-  isRaw: boolean;
+  isProductActive: boolean;
+  isRawProduct: boolean;
 }
 
 class ProductFilter extends PureComponent<IProps, IState> {
   state: IState = {
     productName: undefined,
-    isActive: false,
-    isRaw: false,
+    isProductActive: false,
+    isRawProduct: false,
   };
 
   onSearch = _debounce((search: string = "") => {
@@ -36,16 +37,33 @@ class ProductFilter extends PureComponent<IProps, IState> {
     );
   }, 500);
 
+  onActiveChange = (e: CheckboxChangeEvent) => {
+    this.setState(
+      {
+        isProductActive: e.target.checked,
+      },
+      () => this.getSearchResult()
+    );
+  };
+
+  onRawProductChange = (e: CheckboxChangeEvent) => {
+    this.setState(
+      {
+        isRawProduct: e.target.checked,
+      },
+      () => this.getSearchResult()
+    );
+  };
+
   getSearchResult = () => {
-    const { productName } = this.state;
+    const { productName, isProductActive, isRawProduct } = this.state;
     const { getProducts } = this.props;
 
     const apiArguments = {
-      // isAscending: "False",
       keyword: productName,
-      //orderBy: "Modified",
+      isProductActive,
+      isRawProduct,
       page: 1,
-      parentId: "",
     };
     getProducts(apiArguments);
   };
@@ -64,10 +82,11 @@ class ProductFilter extends PureComponent<IProps, IState> {
             </Col>
             <Col span={12} className={styles.checkboxFilter}>
               <Col span={10}>
-                Actives Only <Checkbox />
+                Actives Only <Checkbox onChange={this.onActiveChange} />
               </Col>
               <Col span={10}>
-                Is Raw Product Only <Checkbox />
+                Is Raw Product Only{" "}
+                <Checkbox onChange={this.onRawProductChange} />
               </Col>
             </Col>
           </Row>
