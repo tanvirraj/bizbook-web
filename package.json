@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
     "@rematch/core": "^1.2.0",
     "@rematch/loading": "^1.2.1",
     "@rematch/persist": "^1.1.6",

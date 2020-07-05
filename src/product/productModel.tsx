@@ -15,6 +15,7 @@ const productModel = {
 
   effects: (dispatch: any) => ({
     async getProducts(payload: any) {
+      console.log("action");
       const response = await productApi.getProducts(payload);
       const productList = response.item1;
       dispatch.productModel.setSuccess(productList);

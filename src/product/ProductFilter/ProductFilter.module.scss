@@ -1,5 +1,16 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
 .productFilter {
-  margin-top: 9px;
-  border: 1px solid red;
+  padding-top: $spacing-medium;
   height: 100px;
+}
+
+.iconFontSize {
+  font-size: $font-size-xxlarge;
+}
+.checkboxFilter {
+  font-size: $font-size-small;
+  padding-left: $spacing-xlarge;
+  padding-top: 14px;
 }
