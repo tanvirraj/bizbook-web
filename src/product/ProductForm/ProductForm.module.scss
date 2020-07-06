@@ -4,3 +4,50 @@
 .button {
   width: 100%;
 }
+
+.selectStyle {
+  height: 48px;
+
+  &.multiSelectStyle {
+    height: auto;
+  }
+
+  &:global(.ant-select-disabled) {
+    background-color: $lighter-gray-color !important;
+    color: $cloudy-blue-color;
+    :global(.ant-select-selection) {
+      border-color: $light-gray-color !important;
+    }
+  }
+
+  :global(.ant-form-item-control:not(.has-error))
+    &
+    :global(.ant-select-selection) {
+    border-color: $gray-color;
+    background: transparent;
+  }
+
+  :global(.ant-select-selection--single) {
+    height: 48px;
+    :global(.ant-select-selection__rendered) {
+      height: 100%;
+      line-height: 48px;
+      margin: 0 $spacing-medium;
+      :global(.ant-select-selection-selected-value) {
+        color: $gray-color;
+      }
+    }
+    :global(.ant-select-arrow) {
+      color: $gray-color;
+    }
+  }
+  :global(.ant-select-selection--multiple) {
+    padding-top: 3px;
+    :global(.ant-select-selection__rendered) {
+      margin: $spacing-small/2 $spacing-medium;
+      :global(.ant-select-selection__placeholder) {
+        margin-left: 0;
+      }
+    }
+  }
+}

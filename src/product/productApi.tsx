@@ -17,3 +17,38 @@ export const getProducts = (params?: any) => {
       throw err;
     });
 };
+
+export const getCategory = () => {
+  const url = Endpoints.PRODUCT_CATEGORY;
+  const data = {
+    isProductCategoryActive: true,
+  };
+
+  return api
+    .post(url, data)
+    .then((resp: any) => resp.data)
+    .catch((err: any) => {
+      throw err;
+    });
+};
+
+export const getBrand = () => {
+  const url = Endpoints.PRODUCT_BRAND;
+
+  return api
+    .post(url, {})
+    .then((resp: any) => resp.data)
+    .catch((err: any) => {
+      throw err;
+    });
+};
+
+/**
+ * Create a  Product
+ */
+export const createProduct = (payload: any) => {
+  const url = Endpoints.CREATE_PRODUCT;
+  return api.post(url, payload).then(resp => {
+    return resp.data;
+  });
+};

@@ -10,7 +10,10 @@ const USERS_URL = "/users";
 export const Endpoints = Object.freeze({
   USERS_LOGIN: USERS_URL + "/login",
   USERS_LOGOUT: USERS_URL + "/logout",
+  CREATE_PRODUCT: "/ProductDetail/Add",
   PRODUCTS: "/ProductDetailQuery/Search",
+  PRODUCT_CATEGORY: "/ProductCategoryQuery/Dropdown",
+  PRODUCT_BRAND: "/BrandQuery/Dropdown",
 });
 
 /**

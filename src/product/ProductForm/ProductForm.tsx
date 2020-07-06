@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, generatePath } from "react-router";
 import DashboardContainer from "ui/DashboardContainer/DashboardContainer";
 import ContentContainer from "ui/ContentContainer/ContentContainer";
 import BrowserTitle from "ui/BrowserTitle";
@@ -9,23 +9,48 @@ import Form, { FormItem } from "ui/forms/Form";
 import Button, { ExtendButtonType } from "ui/Button/Button";
 import Input from "ui/Input/Input";
 import styles from "./ProductForm.module.scss";
-import { Row, Col, Checkbox } from "antd";
+import { Row, Col, Checkbox, Select, message } from "antd";
+import { UtilHelper } from "app/utilHelper";
+import { PRIVATE_ROUTES } from "router/Router.config";
 
-// import { PUBLIC_ROUTES } from "router/Router.config";
+const { Option } = Select;
 
 interface IProps extends RouteComponentProps {
   history: any;
-  /** ProductForm function that calls the API and sets tokens */
-  login: Function;
-  /** Loading state from rematch that listens to the login function */
   loading: boolean;
+  getCategoryList: Function;
+  getBrandlist: Function;
+  categoryList: any;
+  brandList: any;
+  createProduct: Function;
+  user: any;
 }
 
 class ProductForm extends PureComponent<IProps> {
-  handleSubmit = async (data: any) => {
-    console.log("data", data);
+  componentDidMount() {
+    const { getCategoryList, getBrandlist } = this.props;
+    getCategoryList();
+    getBrandlist();
+  }
+
+  handleSubmit = async (values: any) => {
+    const { createProduct, user, history } = this.props;
+    // If values exists remove all undefined values
+    values && UtilHelper.removeUndefined(values);
+    values.CreatedBy = user.userName;
+    values.ModifiedBy = user.userName;
+    values.CreatedFrom = "Browser";
+    values.ShopId = "1";
+
+    try {
+      await createProduct(values);
+      await message.success("Product Created successfully");
+    } finally {
+      history.push(generatePath(PRIVATE_ROUTES.SETTINGS_PRODUCT_SCREEN.path));
+    }
   };
   render() {
+    const { categoryList, brandList } = this.props;
     return (
       <>
         <BrowserTitle title="Add Product" />
@@ -43,7 +68,16 @@ class ProductForm extends PureComponent<IProps> {
                       ],
                     }}
                   >
-                    <Input />
+                    <Select
+                      className={styles.selectStyle}
+                      placeholder="Select Category"
+                    >
+                      {categoryList.map((category: any) => (
+                        <Option key={category.text} value={category.id}>
+                          {category.text}
+                        </Option>
+                      ))}
+                    </Select>
                   </FormItem>
                 </Col>
                 <Col span={11}>
@@ -59,7 +93,16 @@ class ProductForm extends PureComponent<IProps> {
                       ],
                     }}
                   >
-                    <Input />
+                    <Select
+                      className={styles.selectStyle}
+                      placeholder="Select Brand"
+                    >
+                      {brandList.map((brand: any) => (
+                        <Option key={brand.text} value={brand.id}>
+                          {brand.text}
+                        </Option>
+                      ))}
+                    </Select>
                   </FormItem>
                 </Col>
               </Row>
@@ -224,11 +267,15 @@ class ProductForm extends PureComponent<IProps> {
 
 const mapState = (state: any) => ({
   loading: state.loading.effects.userModel.login,
+  categoryList: state.productModel.categoryList,
+  brandList: state.productModel.brandList,
+  user: state.userModel.user,
 });
 
 const mapDispatch = (dispatch: any) => ({
-  login: (username: string, password: string) =>
-    dispatch.userModel.login({ username, password }),
+  getCategoryList: () => dispatch.productModel.getCategorylist(),
+  getBrandlist: () => dispatch.productModel.getBrandlist(),
+  createProduct: (data: any) => dispatch.productModel.createProduct(data),
 });
 
 const LoginWithRouter = withRouter(ProductForm);
