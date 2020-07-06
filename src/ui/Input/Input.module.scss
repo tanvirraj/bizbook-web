@@ -67,7 +67,13 @@ $small-input-height: 40px;
 
 .addonAfterStyle {
   :global(.ant-input) {
+    @extend %ant-input-style;
     border-right-style: none;
+  }
+  :global(.ant-input-group-addon) {
+    &:last-child {
+      border-color: $gray-color;
+    }
   }
 }
 

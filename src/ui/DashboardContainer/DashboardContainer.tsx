@@ -5,7 +5,7 @@ import cx from "classnames";
 
 type Props = {
   /** Title shown in the top left of the container */
-  title: string;
+  title?: string;
   /** Tags shown next to the title (optional) */
   tags?: any;
   /** One or more components shown in the top right, use react fragment to pass in more components (optional) */

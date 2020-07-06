@@ -1,7 +1,8 @@
 import React, { PureComponent } from "react";
 import styles from "./Input.module.scss";
-import { Input as AntInput, InputNumber } from "antd";
+import { Input as AntInput } from "antd";
 import cx from "classnames";
+import { InputProps } from "antd/lib/input/Input";
 
 const { Group: InputGroup } = AntInput;
 
@@ -28,7 +29,7 @@ enum InputType {
   TEL = "tel",
 }
 
-type IProps = {
+export interface IProps extends InputProps {
   /** Addon text or Node after the input */
   addonAfter?: string | React.ReactNode;
   /** Addon text or Node before the input */
@@ -44,7 +45,7 @@ type IProps = {
   /** Prefix icon of the input */
   prefix?: React.ReactNode | string;
   isAddonSeparator?: boolean;
-};
+}
 
 /**
  * Custom Ant Design Input
@@ -78,11 +79,11 @@ class Input extends PureComponent<IProps, any> {
       [styles.addonSeparator]: isAddonSeparator,
     });
 
-    if (type === InputType.NUMBER) {
-      return (
-        <InputNumber disabled={disabled} className={classNames} {...rest} />
-      );
-    }
+    // if (type === InputType.NUMBER) {
+    //   return (
+    //     <InputNumber disabled={disabled} className={classNames} {...rest} />
+    //   );
+    // }
 
     return (
       <AntInput

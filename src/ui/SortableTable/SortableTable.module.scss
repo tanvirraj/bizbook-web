@@ -1,0 +1,50 @@
+@import "src/ui/colors";
+@import "src/ui/variables";
+
+$table-header-height: 62px;
+$select-all-height: 55px;
+
+.table {
+  overflow-x: auto;
+
+  table {
+    border-collapse: collapse;
+  }
+
+  :global(.ant-table-pagination.ant-pagination) {
+    float: none;
+    text-align: center;
+  }
+
+  :global(.ant-table-row-expand-icon-cell),
+  :global(.ant-table-expand-icon-th) {
+    background-color: $gray-lighter-color;
+    border-right: none !important;
+    min-width: 0;
+    padding-right: 0;
+    width: 25px;
+  }
+
+  :global(.ant-table-expanded-row) {
+    & > td:first-child {
+      border-right: none !important;
+    }
+
+    :global(.ant-table-body) {
+      padding: $spacing-medium $spacing-xlarge $spacing-large 0;
+
+      table {
+        border: none;
+      }
+    }
+
+    :global(.ant-table-tbody) > tr > td,
+    :global(.ant-table-thead) > tr > th {
+      border-right: none;
+    }
+
+    :global(.ant-table-tbody) > tr:last-child > td {
+      border-bottom: none;
+    }
+  }
+}

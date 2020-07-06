@@ -1,7 +1,9 @@
 @font-face {
   font-family: "Inter";
-  src: url("./static/Inter-Regular-slnt=0.ttf") format("truetype");
+  src: url("./static/Inter-Regular.woff2") format("woff2"),
+    url("./static/Inter-Regular.woff") format("woff"),
+    url("./static/Inter-Regular-slnt=0.ttf") format("truetype");
   src: url("./static/Inter-SemiBold-slnt=0.ttf") format("truetype");
-  font-weight: 800;
+  font-weight: 500;
   font-style: normal;
 }
