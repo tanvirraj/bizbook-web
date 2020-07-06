@@ -1,7 +1,7 @@
 import * as productApi from "./productApi";
 
 const INITIAL_STATE = {
-  productList: {},
+  productList: [],
   categoryList: [],
   brandList: [],
   productDetails: {},
