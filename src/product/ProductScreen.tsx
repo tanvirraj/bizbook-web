@@ -1,12 +1,14 @@
 import React, { PureComponent } from "react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
+// import { formatRoute } from "react-router-named-routes";
 import DashboardContainer from "ui/DashboardContainer/DashboardContainer";
 import ContentContainer from "ui/ContentContainer/ContentContainer";
 import Button, { ExtendButtonType, ExtendBUttonSize } from "ui/Button/Button";
 import BrowserTitle from "ui/BrowserTitle";
 import ProductFilter from "./ProductFilter/ProductFilter";
 import ProductList from "./ProductList/ProductList";
+import { PRIVATE_ROUTES } from "router/Router.config";
 
 interface IProps extends RouteComponentProps {
   history: any;
@@ -24,7 +26,7 @@ class ProductScreen extends PureComponent<IProps> {
               size={ExtendBUttonSize.DEFAULT}
               text="Add New"
               buttonType={ExtendButtonType.PRIMARY}
-              onClick={() => {}}
+              link={generatePath(PRIVATE_ROUTES.PRODUCT_CREATE_SCREEN.path)}
             />
           }
         >
