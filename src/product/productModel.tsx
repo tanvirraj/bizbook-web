@@ -59,6 +59,7 @@ const productModel = {
 
     async editProduct(payload: any) {
       await productApi.editProduct(payload);
+      dispatch.productModel.getProductDetailsByIdSuccess({});
     },
 
     async getProductDetailsById(productId: any) {
