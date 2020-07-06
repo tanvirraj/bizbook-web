@@ -1,6 +1,11 @@
 import * as productApi from "./productApi";
 
-const INITIAL_STATE = { productList: {}, categoryList: [], brandList: [] };
+const INITIAL_STATE = {
+  productList: {},
+  categoryList: [],
+  brandList: [],
+  productDetails: {},
+};
 
 const productModel = {
   state: INITIAL_STATE,
@@ -23,6 +28,12 @@ const productModel = {
         brandList: payload,
       };
     },
+    getProductDetailsByIdSuccess: (state: any, payload: any) => {
+      return {
+        ...state,
+        productDetails: payload,
+      };
+    },
   },
 
   effects: (dispatch: any) => ({
@@ -43,8 +54,16 @@ const productModel = {
     },
 
     async createProduct(payload: any) {
-      const response = await productApi.createProduct(payload);
-      console.log("response", response);
+      await productApi.createProduct(payload);
+    },
+
+    async editProduct(payload: any) {
+      await productApi.editProduct(payload);
+    },
+
+    async getProductDetailsById(productId: any) {
+      const productDetails = await productApi.getProductDetailsById(productId);
+      dispatch.productModel.getProductDetailsByIdSuccess(productDetails);
     },
   }),
 };

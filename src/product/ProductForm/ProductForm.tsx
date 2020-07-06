@@ -12,10 +12,11 @@ import styles from "./ProductForm.module.scss";
 import { Row, Col, Checkbox, Select, message } from "antd";
 import { UtilHelper } from "app/utilHelper";
 import { PRIVATE_ROUTES } from "router/Router.config";
+import { DetailsParams } from "router/routerConst";
 
 const { Option } = Select;
 
-interface IProps extends RouteComponentProps {
+interface IProps extends RouteComponentProps<DetailsParams> {
   history: any;
   loading: boolean;
   getCategoryList: Function;
@@ -23,18 +24,38 @@ interface IProps extends RouteComponentProps {
   categoryList: any;
   brandList: any;
   createProduct: Function;
+  editProduct: Function;
   user: any;
+  getProductDetailsById: Function;
+  getProductDetails: any;
 }
 
 class ProductForm extends PureComponent<IProps> {
   componentDidMount() {
-    const { getCategoryList, getBrandlist } = this.props;
+    const { getCategoryList, getBrandlist, match } = this.props;
+    const productId = match.params.itemId;
     getCategoryList();
     getBrandlist();
+
+    if (productId && match.path === PRIVATE_ROUTES.PRODUCT_EDIT_SCREEN.path) {
+      this.getProduct(productId);
+    }
+  }
+
+  getProduct = (productId: any) => {
+    const { getProductDetailsById } = this.props;
+    getProductDetailsById(productId);
+  };
+
+  componentDidUpdate(prevProps: IProps) {
+    const { getProductDetails } = this.props;
+    if (getProductDetails !== prevProps.getProductDetails) {
+    }
   }
 
   handleSubmit = async (values: any) => {
-    const { createProduct, user, history } = this.props;
+    const { createProduct, editProduct, user, history, match } = this.props;
+    const productId = match.params.itemId;
     // If values exists remove all undefined values
     values && UtilHelper.removeUndefined(values);
     values.CreatedBy = user.userName;
@@ -42,20 +63,34 @@ class ProductForm extends PureComponent<IProps> {
     values.CreatedFrom = "Browser";
     values.ShopId = "1";
 
-    try {
-      await createProduct(values);
-      await message.success("Product Created successfully");
-    } finally {
-      history.push(generatePath(PRIVATE_ROUTES.SETTINGS_PRODUCT_SCREEN.path));
+    if (productId) {
+      values.id = productId;
+      try {
+        await editProduct(values);
+        await message.success("Edit Product successfully");
+      } finally {
+        history.push(generatePath(PRIVATE_ROUTES.SETTINGS_PRODUCT_SCREEN.path));
+      }
+    } else {
+      try {
+        await createProduct(values);
+        await message.success("Product Created successfully");
+      } finally {
+        history.push(generatePath(PRIVATE_ROUTES.SETTINGS_PRODUCT_SCREEN.path));
+      }
     }
   };
   render() {
-    const { categoryList, brandList } = this.props;
+    const { categoryList, brandList, getProductDetails, match } = this.props;
+    const editMode = !!match.params.itemId;
+
     return (
       <>
-        <BrowserTitle title="Add Product" />
+        <BrowserTitle title={editMode ? "Edit Product" : "Add Product"} />
         <DashboardContainer>
-          <ContentContainer title="Product Details">
+          <ContentContainer
+            title={editMode ? "Edit Product" : "Add New Product"}
+          >
             <Form onSubmitForm={this.handleSubmit}>
               <Row type="flex" justify="space-between">
                 <Col span={11}>
@@ -63,6 +98,10 @@ class ProductForm extends PureComponent<IProps> {
                     label="Category"
                     name="productCategoryId"
                     options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.productCategoryId
+                          ? getProductDetails.productCategoryId
+                          : undefined,
                       rules: [
                         { required: true, message: "Category is required" },
                       ],
@@ -85,6 +124,10 @@ class ProductForm extends PureComponent<IProps> {
                     label="Brand"
                     name="brandId"
                     options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.brandId
+                          ? getProductDetails.brandId
+                          : undefined,
                       rules: [
                         {
                           required: true,
@@ -112,6 +155,10 @@ class ProductForm extends PureComponent<IProps> {
                     label="Name"
                     name="name"
                     options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.name
+                          ? getProductDetails.name
+                          : undefined,
                       rules: [{ required: true, message: "Name is required" }],
                     }}
                   >
@@ -119,21 +166,48 @@ class ProductForm extends PureComponent<IProps> {
                   </FormItem>
                 </Col>
                 <Col span={11}>
-                  <FormItem label="Model" name="Model">
+                  <FormItem
+                    label="Model"
+                    name="model"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.model
+                          ? getProductDetails.model
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
               </Row>
               <Row type="flex" justify="space-between">
                 <Col span={11}>
-                  <FormItem label="Year" name="year">
+                  <FormItem
+                    label="Year"
+                    name="year"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.year
+                          ? getProductDetails.year
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
               </Row>
               <Row type="flex" justify="space-between">
                 <Col span={11}>
-                  <FormItem label="Product Code" name="productCode">
+                  <FormItem
+                    label="Product Code"
+                    name="productCode"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.productCode
+                          ? getProductDetails.productCode
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
@@ -142,6 +216,10 @@ class ProductForm extends PureComponent<IProps> {
                     label="Bar Code"
                     name="barCode"
                     options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.barCode
+                          ? getProductDetails.barCode
+                          : undefined,
                       rules: [
                         {
                           required: true,
@@ -157,24 +235,60 @@ class ProductForm extends PureComponent<IProps> {
 
               <Row type="flex" justify="space-between">
                 <Col span={11}>
-                  <FormItem label="Sale Price" name="salePrice">
+                  <FormItem
+                    label="Sale Price"
+                    name="salePrice"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.salePrice
+                          ? getProductDetails.salePrice
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
                 <Col span={11}>
-                  <FormItem label="Dealer Price" name="dealerPrice">
+                  <FormItem
+                    label="Dealer Price"
+                    name="dealerPrice"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.dealerPrice
+                          ? getProductDetails.dealerPrice
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
               </Row>
               <Row type="flex" justify="space-between">
                 <Col span={11}>
-                  <FormItem label="Type" name="type">
+                  <FormItem
+                    label="Type"
+                    name="type"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.type
+                          ? getProductDetails.type
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
                 <Col span={11}>
-                  <FormItem label="Color" name="color">
+                  <FormItem
+                    label="Color"
+                    name="color"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.color
+                          ? getProductDetails.color
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
@@ -184,24 +298,58 @@ class ProductForm extends PureComponent<IProps> {
                   <FormItem
                     label="Minimum Stock To Notify"
                     name="minimumStockToNotify"
+                    options={{
+                      initialValue:
+                        getProductDetails &&
+                        getProductDetails.minimumStockToNotify
+                          ? getProductDetails.minimumStockToNotify
+                          : undefined,
+                    }}
                   >
                     <Input />
                   </FormItem>
                 </Col>
                 <Col span={11}>
-                  <FormItem label="Starting Inventory" name="startingInventory">
+                  <FormItem
+                    label="Starting Inventory"
+                    name="startingInventory"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.startingInventory
+                          ? getProductDetails.startingInventory
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
               </Row>
               <Row type="flex" justify="space-between">
                 <Col span={11}>
-                  <FormItem label="Purchased" name="Purchased">
+                  <FormItem
+                    label="Purchased"
+                    name="purchased"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.purchased
+                          ? getProductDetails.purchased
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
                 <Col span={11}>
-                  <FormItem label="Sold" name="Sold">
+                  <FormItem
+                    label="Sold"
+                    name="sold"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.sold
+                          ? getProductDetails.sold
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
@@ -209,7 +357,16 @@ class ProductForm extends PureComponent<IProps> {
 
               <Row type="flex" justify="space-between" align="middle">
                 <Col span={11}>
-                  <FormItem label="On Hand" name="On Hand">
+                  <FormItem
+                    label="On Hand"
+                    name="onHand"
+                    options={{
+                      initialValue:
+                        getProductDetails && getProductDetails.onHand
+                          ? getProductDetails.onHand
+                          : undefined,
+                    }}
+                  >
                     <Input />
                   </FormItem>
                 </Col>
@@ -220,7 +377,10 @@ class ProductForm extends PureComponent<IProps> {
                       name="isActive"
                       options={{
                         valuePropName: "checked",
-                        initialValue: false,
+                        initialValue:
+                          getProductDetails && getProductDetails.isActive
+                            ? getProductDetails.isActive
+                            : undefined,
                       }}
                     >
                       <Checkbox className={styles.rememberMe}>
@@ -234,7 +394,10 @@ class ProductForm extends PureComponent<IProps> {
                       name="isRawProduct"
                       options={{
                         valuePropName: "checked",
-                        initialValue: false,
+                        initialValue:
+                          getProductDetails && getProductDetails.isRawProduct
+                            ? getProductDetails.isRawProduct
+                            : undefined,
                       }}
                     >
                       <Checkbox className={styles.rememberMe}>
@@ -270,12 +433,16 @@ const mapState = (state: any) => ({
   categoryList: state.productModel.categoryList,
   brandList: state.productModel.brandList,
   user: state.userModel.user,
+  getProductDetails: state.productModel.productDetails,
 });
 
 const mapDispatch = (dispatch: any) => ({
   getCategoryList: () => dispatch.productModel.getCategorylist(),
   getBrandlist: () => dispatch.productModel.getBrandlist(),
   createProduct: (data: any) => dispatch.productModel.createProduct(data),
+  editProduct: (data: any) => dispatch.productModel.editProduct(data),
+  getProductDetailsById: (productId: any) =>
+    dispatch.productModel.getProductDetailsById(productId),
 });
 
 const LoginWithRouter = withRouter(ProductForm);

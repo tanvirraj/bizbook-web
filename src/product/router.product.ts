@@ -17,3 +17,12 @@ export const PRODUCT_CREATE_SCREEN: IMenuItemType = {
   path: SETTINGS_PRODUCT_SCREEN.path + RouterParameters.CREATE,
   component: ProductForm,
 };
+
+export const PRODUCT_EDIT_SCREEN: IMenuItemType = {
+  ...SETTINGS_PRODUCT_SCREEN,
+  path:
+    SETTINGS_PRODUCT_SCREEN.path +
+    RouterParameters.EDIT +
+    RouterParameters.ITEM_ID,
+  component: ProductForm,
+};

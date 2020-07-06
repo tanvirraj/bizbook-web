@@ -52,3 +52,28 @@ export const createProduct = (payload: any) => {
     return resp.data;
   });
 };
+
+export const getProductDetailsById = (productId: any) => {
+  return api
+    .post(
+      Endpoints.PRODUCT_DETAIL,
+      {},
+      {
+        params: { id: productId },
+      }
+    )
+    .then((resp: any) => resp.data)
+    .catch((err: any) => {
+      throw err;
+    });
+};
+
+/**
+ * Create a  Product
+ */
+export const editProduct = (product: any) => {
+  const url = Endpoints.EDIT_PRODUCT;
+  return api.put(url, product).then(resp => {
+    return resp.data;
+  });
+};

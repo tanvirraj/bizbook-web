@@ -1,8 +1,9 @@
 import React, { PureComponent } from "react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Checkbox } from "antd";
+import { PRIVATE_ROUTES } from "router/Router.config";
 import SortableTable, { Column } from "ui/SortableTable/SortableTable";
 import Button, { ExtendButtonType, ExtendBUttonSize } from "ui/Button/Button";
 
@@ -52,14 +53,17 @@ class ProductList extends PureComponent<IProps> {
             title={"Action"}
             dataIndex="action"
             key="action"
-            render={(text: any) => {
+            render={(text: any, product: any) => {
               return (
                 <span>
                   <Button
                     size={ExtendBUttonSize.SMALL}
                     buttonType={ExtendButtonType.DEFAULT}
-                    onClick={() => {}}
                     text="Edit"
+                    link={generatePath(
+                      PRIVATE_ROUTES.PRODUCT_EDIT_SCREEN.path,
+                      { itemId: product.id }
+                    )}
                   >
                     Edit
                   </Button>

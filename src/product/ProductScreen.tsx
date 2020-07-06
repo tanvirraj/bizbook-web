@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { RouteComponentProps, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
-// import { formatRoute } from "react-router-named-routes";
 import DashboardContainer from "ui/DashboardContainer/DashboardContainer";
 import ContentContainer from "ui/ContentContainer/ContentContainer";
 import Button, { ExtendButtonType, ExtendBUttonSize } from "ui/Button/Button";
