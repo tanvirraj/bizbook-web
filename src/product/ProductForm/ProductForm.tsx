@@ -47,12 +47,6 @@ class ProductForm extends PureComponent<IProps> {
     getProductDetailsById(productId);
   };
 
-  componentDidUpdate(prevProps: IProps) {
-    const { getProductDetails } = this.props;
-    if (getProductDetails !== prevProps.getProductDetails) {
-    }
-  }
-
   handleSubmit = async (values: any) => {
     const { createProduct, editProduct, user, history, match } = this.props;
     const productId = match.params.itemId;
